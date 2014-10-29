@@ -1,0 +1,72 @@
+apply plugin: "base"
+apply plugin: "java"
+
+buildscript {
+	repositories {
+		maven { url "https://repo.spring.io/plugins-release" }
+	}
+	dependencies {
+		classpath("org.springframework.build.gradle:spring-io-plugin:0.0.3.RELEASE")
+		classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
+        classpath("org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3")
+	    classpath('me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1')
+		classpath("ws.antonov.gradle.plugins:gradle-plugin-protobuf:0.9.1")
+		classpath('org.asciidoctor:asciidoctor-gradle-plugin:0.7.0')
+        classpath('org.asciidoctor:asciidoctor-java-integration:0.1.4.preview.1')
+	}
+}
+
+
+apply plugin: 'javadocHotfix'
+
+description "leeln site java data project"
+group = "org.fightteam.leeln"
+
+ext {
+	gradleScriptDir = "${rootProject.projectDir}/gradle"
+}
+
+
+compileJava {
+	sourceCompatibility=1.6
+	targetCompatibility=1.6
+}
+
+compileTestJava {
+	sourceCompatibility=1.8
+	targetCompatibility=1.8
+	options.compilerArgs += "-parameters"
+}
+
+[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g"]
+[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+
+	mavenLocal()
+	mavenCentral()
+	maven { url "http://repo.spring.io/libs-release" }
+}
+
+dependencies {
+
+}
+
+
+
+javadoc{
+	options.encoding = "UTF-8"
+	options.overview = "gradle/javadoc/overview.html"
+	options.charSet = "UTF-8"
+
+	//options.header = "leeln 网站数据模块 API"
+	//options.author = true
+	options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PRIVATE
+	options.splitIndex = true
+	
+}
+
+
+task wrapper(type: Wrapper){
+	gradleVersion = "2.1"
+}
