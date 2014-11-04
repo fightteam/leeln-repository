@@ -10,7 +10,6 @@ configurations {
     jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
 }
 
-
 dependencies {
 
     compile 'aopalliance:aopalliance:1.0',
@@ -46,7 +45,8 @@ dependencies {
             'org.mockito:mockito-core:1.9.5',
             "org.springframework:spring-test:$springVersion",
             'org.easytesting:fest-assert:1.4',
-            "org.springframework.security:spring-security-core:$springSecurityVersion"
+            "org.springframework.security:spring-security-core:$springSecurityVersion",
+            'com.h2database:h2:1.4.182'
 
     jacoco "org.jacoco:org.jacoco.agent:0.6.2.201302030002:runtime"
 }

@@ -2,7 +2,7 @@ apply plugin: "base"
 apply plugin: "java"
 buildscript {
 	repositories {
-        //mavenLocal()
+        mavenLocal()
         mavenCentral()
 		maven { url "https://repo.spring.io/plugins-release" }
 		maven { url "http://gradle.artifactoryonline.com/gradle/libs" }
