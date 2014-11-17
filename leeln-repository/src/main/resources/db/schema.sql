@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL auto_increment,
   `username` varchar(15) DEFAULT NULL,
+  `nickname` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
