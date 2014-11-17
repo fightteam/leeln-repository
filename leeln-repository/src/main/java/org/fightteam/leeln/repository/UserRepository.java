@@ -77,7 +77,7 @@ public interface UserRepository {
      * @return 删除影响的行数
      */
     @Delete("delete from user where id = #{id}")
-    int delete(int id);
+    int delete(long id);
 
 
 }

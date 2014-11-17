@@ -60,7 +60,7 @@ public class UserRepositoryTest extends RepositoryConfigTest {
 
     @Test
     public void testDelete() throws Exception {
-        userRepository.delete(1);
+        userRepository.delete(1L);
         User user = userRepository.findByUsername("oyach");
         Assert.assertNull(user);
     }
