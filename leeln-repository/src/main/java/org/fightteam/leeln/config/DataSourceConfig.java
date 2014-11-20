@@ -67,6 +67,7 @@ public class DataSourceConfig {
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+        log.info("init database flag:" + schemaDatabase);
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
