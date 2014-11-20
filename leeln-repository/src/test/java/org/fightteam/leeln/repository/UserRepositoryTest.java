@@ -22,15 +22,6 @@ public class UserRepositoryTest extends RepositoryConfigTest {
     private UserRepository userRepository;
 
 
-    @Before
-    public void setUp() throws Exception {
-        User user = new User();
-        user.setUsername("oyach");
-        user.setNickname("欧阳澄泓");
-        userRepository.save(user);
-
-    }
-
     @Test
     public void testSave() throws Exception {
         User user = new User();
@@ -86,7 +77,6 @@ public class UserRepositoryTest extends RepositoryConfigTest {
         user.setUsername("oyach2");
         user.setNickname("欧阳澄泓");
         userRepository.save(user);
-
         List<User> users = userRepository.findAll();
         Assert.assertEquals(2, users.size());
 

@@ -10,4 +10,3 @@ CREATE TABLE `user` (
   `nickname` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
-
