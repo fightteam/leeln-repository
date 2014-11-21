@@ -17,6 +17,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -84,15 +85,7 @@ public class DataSourceConfig {
         dataSourceInitializer.setDataSource(dataSource);
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 
-        Resource resources = applicationContext.getResource(ResourcePatternResolver.CLASSPATH_URL_PREFIX + "sql/schema.sql");
-
         databasePopulator.addScript(new ClassPathResource("sql/schema.sql"));
-
-        ClassPathResource classPathResource = new ClassPathResource("sql/data.sql");
-
-        if (classPathResource.exists()){
-            databasePopulator.addScript(classPathResource);
-        }
 
         dataSourceInitializer.setDatabasePopulator(databasePopulator);
         dataSourceInitializer.setEnabled(schemaDatabase);

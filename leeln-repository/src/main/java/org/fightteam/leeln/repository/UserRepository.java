@@ -60,7 +60,7 @@ public interface UserRepository {
      */
     @Insert("insert into user (username, nickname) values(#{username},#{nickname})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int save(User user);
+    long save(User user);
 
     /**
      * 更新用户操作
@@ -69,7 +69,7 @@ public interface UserRepository {
      * @return 返回影响的行数
      */
     @Update("update user set nickname = #{nickname}, username = #{username}")
-    int update(User user);
+    long update(User user);
 
     /**
      * 根据id删除一个对象
@@ -77,7 +77,21 @@ public interface UserRepository {
      * @return 删除影响的行数
      */
     @Delete("delete from user where id = #{id}")
-    int delete(long id);
+    long delete(long id);
 
+    /**
+     * 统计该表数据条数
+     *
+     * @return 数据条数
+     */
+    @Select("select count(*) from user")
+    long count();
 
+    /**
+     * 删除所有数据 危险操作 注意
+     *
+     * @return 删除的行数
+     */
+    @Delete("delete from user")
+    long deleteAll();
 }
