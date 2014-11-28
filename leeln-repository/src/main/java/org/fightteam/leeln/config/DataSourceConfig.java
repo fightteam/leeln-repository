@@ -5,15 +5,25 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * description
@@ -44,6 +54,9 @@ public class DataSourceConfig {
     @Value("${jdbc.schema.database}")
     private boolean schemaDatabase;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
 
     /**
      * 数据源
@@ -66,11 +79,14 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) throws IOException{
+        log.info("init database flag:" + schemaDatabase);
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("db/schema.sql"));
+
+        databasePopulator.addScript(new ClassPathResource("sql/schema.sql"));
+
         dataSourceInitializer.setDatabasePopulator(databasePopulator);
         dataSourceInitializer.setEnabled(schemaDatabase);
         return dataSourceInitializer;
@@ -109,6 +125,23 @@ public class DataSourceConfig {
             return HSQL_DRIVER_NAME;
         } else {
             throw new IllegalArgumentException("Unknown Database of " + jdbcUrl);
+        }
+    }
+
+    private void addSql(List<Resource> sqlResources, File parent){
+
+        if (parent.isDirectory() && parent.canExecute()){
+            File[] files = parent.listFiles();
+
+            if (files != null){
+                for (File file : files){
+                    addSql(sqlResources, file);
+                }
+            }
+
+
+        }else{
+            sqlResources.add(new FileSystemResource(parent));
         }
     }
 }
