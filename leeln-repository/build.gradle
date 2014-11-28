@@ -74,3 +74,4 @@ dependencies {
 //integrationTest {
 //    jvmArgs "-javaagent:${configurations.jacoco.asPath}=destfile=${buildDir}/jacoco.exec,includes=${project.group}.*"
 //}
+

@@ -14,7 +14,7 @@ buildscript {
         classpath("org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3")
 	    classpath('me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1')
 		classpath("ws.antonov.gradle.plugins:gradle-plugin-protobuf:0.9.1")
-		classpath('org.asciidoctor:asciidoctor-gradle-plugin:0.7.0')
+		classpath('org.asciidoctor:asciidoctor-gradle-plugin:1.5.0')
         classpath('org.asciidoctor:asciidoctor-java-integration:0.1.4.preview.1')
 	}
 }

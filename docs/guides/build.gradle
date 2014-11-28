@@ -1,9 +1,8 @@
-apply plugin: 'asciidoctor'
+apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 
 asciidoctor {
     baseDir = file('src/asciidoc')
     options = [
-      eruby: 'erubis',
       eruby: 'erubis',
       attributes: [
           copycss : '',
@@ -15,7 +14,8 @@ asciidoctor {
           idprefix: '',
           idseparator: '-',
           doctype: 'book',
-          'spring-security-version' : project.version,
+          encoding: 'utf-8',
+          'leeln-repository-version' : project.version,
           'download-url' : getDownloadUrl(),
           'include-maven-repository' : getMavenRepositoryInclude(),
           revnumber : project.version

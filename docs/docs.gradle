@@ -7,11 +7,12 @@ task docs {
 
 project('manual') {
     apply plugin: 'base'
-    apply plugin: 'asciidoctor'
+    apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 
     ext.expandPlaceholders = ""
 
     asciidoctor {
+
         options = [
           eruby: 'erubis',
           attributes: [
@@ -24,8 +25,9 @@ project('manual') {
               idseparator: '-',
               doctype: 'book',
               numbered: '',
-              'spring-security-version' : project.version,
-              'spring-version' : springVersion,
+              'leeln-repository-version' : project.version,
+              'spring-version' : "4.0.0.RELEASE",
+              encoding: 'utf-8',
               revnumber : project.version
           ]
         ]
@@ -43,7 +45,9 @@ project('manual') {
 task apidocs(type: Javadoc) {
     destinationDir = new File(buildDir, 'apidocs')
     title = "leeln Repository $version API"
-
+	options.encoding = "UTF-8"
+    options.charSet = "UTF-8"
+    options.addStringOption('Xdoclint:none', '-quiet')
     source javaProjects.collect { project ->
         project.sourceSets.main.allJava
     }

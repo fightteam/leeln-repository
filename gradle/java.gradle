@@ -90,12 +90,12 @@ javadoc{
     options.encoding = "UTF-8"
     //options.overview = "$rootProject.rootDir/javadoc/overview.html"
     options.charSet = "UTF-8"
-
+    options.addStringOption('Xdoclint:none', '-quiet')
     //options.header = "leeln 网站数据模块 API"
     //options.author = true
-    options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PRIVATE
+    options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PROTECTED
     options.splitIndex = true
-
+    maxMemory = "1024m"
 }
 
 // Integration test setup
