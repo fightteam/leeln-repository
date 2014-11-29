@@ -1,7 +1,7 @@
 apply plugin: "base"
-apply plugin: "java"
 buildscript {
 	repositories {
+        jcenter()
         mavenLocal()
         mavenCentral()
 		maven { url "https://repo.spring.io/plugins-release" }
@@ -29,6 +29,7 @@ ext.IDE_GRADLE = "$rootDir/gradle/ide.gradle"
 ext.SONAR_GRADLE = "$rootDir/gradle/sonar.gradle"
 
 
+ext.springVersion = '4.1.2.RELEASE'
 
 
 
@@ -43,8 +44,13 @@ ext.snapshotBuild = version.endsWith('SNAPSHOT')
 apply from: IDE_GRADLE
 apply from: SONAR_GRADLE
 
-// Task for creating the distro zip
 
+configure(javaProjects) {
+    apply from: JAVA_GRADLE
+    apply from: MAVEN_GRADLE
+}
+
+// Task for creating the distro zip
 task dist(type: Zip) {
     dependsOn subprojects*.tasks*.matching { task -> task.name == 'assemble' || task.name.endsWith('Zip') || task.name.endsWith('generatePom') }
     classifier = 'dist'

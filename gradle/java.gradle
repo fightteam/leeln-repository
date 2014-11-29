@@ -144,6 +144,13 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 artifacts {
     archives javadocJar
+    archives sourceJar
+
 }
